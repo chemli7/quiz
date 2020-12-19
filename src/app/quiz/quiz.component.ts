@@ -18,7 +18,7 @@ export class QuizComponent implements OnInit {
   // from db
   QList = ["What's the biggest animal in the world? \n  Give 3 animals How many minutes in a game of rugby league?","What does He stand for on the periodic table?","How many minutes in a game of rugby league?","Who did Anne Hathaway play in Les Miserables?"]
   QAnswers = [["They probably got my blood sample mixed up. I, uh, dropped your blood sample","They probably got my blood sample mixed up. I, uh, dropped your blood sample","They probably got my blood sample mixed up.","They probably got my blood sample mixed up. I, uh, dropped your blood sample","They probably got my blood sample mixed up."],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"]]
-  QDecision = [[2,3],[2],[1],[1],[1]]
+  QDecision = [[2,3],[2,3,4],[1],[1],[1]]
   QSelected = [[],[],[],[],[]]
   
   Scoring() {
@@ -54,7 +54,7 @@ release(){
 
 showRightAnswers(){
   // delete past colors
-  for (let s of [0,1,2,3,4]) this.colors[s] = ""
+  for (let s of [0,1,2,3,4]) this.colors[s] = "primary"
   // fill right colors
   for ( let s of this.QDecision[this.pointer] ) { this.colors[s] = "success"; }
 }
@@ -65,7 +65,7 @@ this.selected = this.QSelected[this.pointer]
 
 
 newQuestion() {
-  this.colors = ["","","","",""]
+  this.colors = ["primary","primary","primary","primary","primary"]
     this.selected= ["","","","",""]
         this.release()
 }
@@ -104,7 +104,7 @@ newQuestion() {
 
   go() {
     this.showRightAnswers()
-    this.block()
+    //this.block()
     // answered
     this.answered[this.pointer] = true;
     //scoring
@@ -115,15 +115,15 @@ newQuestion() {
   }
 
   selectAnswer(q:number) {
-    if (this.selected[q] == "") this.selected[q] = "blue"
-    else if (this.selected[q] == "blue") this.selected[q] = ""
+    if (this.selected[q] == "") this.selected[q] = "white"
+    else if (this.selected[q] == "white") this.selected[q] = ""
     
   }
 
   ngOnInit() {
     this.pointer = 0
     this.score = 0
-    this.colors = ["","","","",""]
+    this.colors = ["primary","primary","primary","primary","primary"]
     this.selected= ["","","","",""]
     this.answered = [false,false,false,false,false]
     this.disabled=false
