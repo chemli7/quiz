@@ -16,7 +16,7 @@ export class QuizComponent implements OnInit {
   constructor() { }
 
   // from db
-  QList = ["What's the biggest animal in the world? \n  Give 3 animals How many minutes in a game of rugby league?","What does He stand for on the periodic table?","How many minutes in a game of rugby league?","Who did Anne Hathaway play in Les Miserables?"]
+  QList = ["What's the biggest animal in the world? \n  Give 3 animals from the choices below?","What does He stand for on the periodic table?","How many minutes in a game of rugby league?","Who did Anne Hathaway play in Les Miserables?"]
   QAnswers = [["They probably got my blood sample mixed up. I, uh, dropped your blood sample","They probably got my blood sample mixed up. I, uh, dropped your blood sample","They probably got my blood sample mixed up.","They probably got my blood sample mixed up. I, uh, dropped your blood sample","They probably got my blood sample mixed up."],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"]]
   QDecision = [[2,3],[2,3,4],[1],[1],[1]]
   QSelected = [[],[],[],[],[]]
@@ -32,13 +32,13 @@ Back() {
   this.pointer = this.pointer - 1
   // if answered[pointer] block and show right answers and selected ones
   // else initate colors and selected
-  if (this.answered[this.pointer]) {this.block(); this.showRightAnswers(); this.showSelectedAnswers()}
+  if (this.answered[this.pointer]) { this.showRightAnswers(); this.showSelectedAnswers()}
   else { this.newQuestion() } }
 }
 Next() {
   if (this.pointer + 1!=this.QAnswers.length) {
   this.pointer = this.pointer + 1
-  if (this.answered[this.pointer]) {this.block(); this.showRightAnswers(); this.showSelectedAnswers()}
+  if (this.answered[this.pointer]) { this.showRightAnswers(); this.showSelectedAnswers()}
   else { this.newQuestion() } }
   else console.log(this.score)
 }
@@ -54,7 +54,7 @@ release(){
 
 showRightAnswers(){
   // delete past colors
-  for (let s of [0,1,2,3,4]) this.colors[s] = "primary"
+  for (let s of [0,1,2,3,4]) this.colors[s] = ""
   // fill right colors
   for ( let s of this.QDecision[this.pointer] ) { this.colors[s] = "success"; }
 }
@@ -65,7 +65,7 @@ this.selected = this.QSelected[this.pointer]
 
 
 newQuestion() {
-  this.colors = ["primary","primary","primary","primary","primary"]
+  this.colors = ["newgray","newgray","newgray","newgray","newgray"]
     this.selected= ["","","","",""]
         this.release()
 }
@@ -115,15 +115,15 @@ newQuestion() {
   }
 
   selectAnswer(q:number) {
-    if (this.selected[q] == "") this.selected[q] = "white"
-    else if (this.selected[q] == "white") this.selected[q] = ""
+    if (this.selected[q] == "") this.selected[q] = "#0e6fce"
+    else if (this.selected[q] == "#0e6fce") this.selected[q] = ""
     
   }
 
   ngOnInit() {
     this.pointer = 0
     this.score = 0
-    this.colors = ["primary","primary","primary","primary","primary"]
+    this.colors = ["newgray","newgray","newgray","newgray","newgray"]
     this.selected= ["","","","",""]
     this.answered = [false,false,false,false,false]
     this.disabled=false
