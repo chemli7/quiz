@@ -14,7 +14,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'quiz/:year/:course/:school',
+    path: 'quiz/:year/:school/:course',
     component: QuizComponent
   },
   {

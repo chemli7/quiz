@@ -10,18 +10,28 @@
  -->
 
  
-<div   style=" height: 32%;" > 
+<div   style=" height: 30%;" 
+[scrollEvents]="true"
+  (ionScrollStart)="logScrollStart()"
+  (ionScroll)="logScrolling($event)"
+  (ionScrollEnd)="logScrollEnd()">
+ 
   <ion-card-header color="newblue" class="d-flex align-items-center justify-content-center" style="color: white;">
     Cardio, Monastir, 2018
   </ion-card-header>
 
   <ion-card-content color="newblue"  class="ion-text-center"   >
-    <ion-text style="font-size: 150%" >{{ QList[pointer] }}</ion-text>
+    <ion-text style="font-size: {{QsizeList[pointer]}}" >{{ QList[pointer] }}</ion-text>
   </ion-card-content>
 </div>
+
 <ion-item color="newblue">
   <ion-button  (click)="Back()" slot="start"><ion-icon name="chevron-back-outline"></ion-icon>back</ion-button>
- <!-- <ion-button slot="start" (click)="Report()" color="danger">report</ion-button> -->
+ <!-- Green Progress Bar -->
+<div  class="progress " style="width: 100%;">
+  <div class="progress-bar bg-info progress-bar-striped" style="width:{{ successPercentage }}%"></div>
+</div>
+  <!-- <ion-button slot="start" (click)="Report()" color="danger">report</ion-button> -->
   <ion-button  (click)="Next()" slot="end">next<ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
 </ion-item>
 

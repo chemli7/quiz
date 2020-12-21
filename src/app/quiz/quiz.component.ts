@@ -16,21 +16,17 @@ export class QuizComponent implements OnInit {
   answered: boolean[];
   selectionColor:string="#0e6fce";
   propositionColor:string="newgray";
+  QsizeList = []
+  successPercentage: number = 0;
 
   constructor(private route: ActivatedRoute,private http: HttpClient) { }
 
-  // from db
+  // waiting for db
   QList = [""];
   QAnswers = [["A-","B-","C-","D-","E-"]];
   QDecision = [];
   QSelected = [];
 
-  
-  Scoring() {
-
-    if (this.selected[1] != "") return 1
-    else return 0
-  }
 
 Back() {
   if (this.pointer !=0) {
@@ -73,8 +69,24 @@ newQuestion() {
         this.release()
 }
 
+QSizing() {
+  this.QsizeList = []
+for ( let s of this.QList) {
+  
+  let l = s.length;
+  console.log(l);
+  
+  if (l >= 100 && l <= 175) this.QsizeList.push("150%")
+  else if (l >= 175 && l <= 250) this.QsizeList.push("125%")
+  else if (l >= 250) this.QsizeList.push("100%")
+  else if (l <= 100) this.QsizeList.push("180%")
+}
 
-  calculScore(){
+console.log(this.QsizeList)
+}
+
+
+calculScore(){
       var s =0;
         //we assume that the length of QDecisions == QColors
         if (this.intruderExists(this.QDecision[this.pointer],this.selected)){
@@ -116,6 +128,8 @@ newQuestion() {
       
       // saving answers
       this.QSelected[this.pointer] = this.selected
+      // Score indicator
+      this.successPercentage = this.successPercentage + (1/this.QList.length)*100;
     }
   }
 
@@ -134,12 +148,9 @@ newQuestion() {
     this.route.params.subscribe( params => data['year'] = params["year"]);
     this.route.params.subscribe( params => data['course'] = params["course"]);
     this.route.params.subscribe( params => data['school'] = params["school"]);
+    console.log(data["course"])
 
-    let params = new HttpParams().append('year', "2018");
-    params.append('course', "Cardio");
-    params.append('school', "Monastir");
-
-    this.http.post<any[]>("http://localhost:8080/data", {"name": "", "year":"2018","course":"Cardio","school":"Monastir"}).subscribe(data => {
+    this.http.post<any[]>("http://localhost:8080/data", {"name": "", "year":data["year"],"course":data["course"],"school":data["school"]}).subscribe(data => {
 
         data = data["data"];
 
@@ -154,10 +165,9 @@ newQuestion() {
           this.QAnswers[i].push(data[i]['C']);
           this.QAnswers[i].push(data[i]['D']);
           this.QAnswers[i].push(data[i]['E']);
-          this.QDecision.push(data[i]['rightAnswers']);
-          
-          
+          this.QDecision.push(data[i]['rightAnswers']);  
         }        
+        this.QSizing()
     });
 
   }
@@ -178,6 +188,7 @@ newQuestion() {
     this.disabled=false;
     this.getData();    
     this.initVariables();
+    
     
   }
 
