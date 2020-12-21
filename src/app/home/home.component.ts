@@ -10,8 +10,7 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   go() {
-    window.location.href = "/quiz"
-
+    window.location.href = "/quiz/2018/Monastir/Cardio"
   }
 
   ngOnInit() {}

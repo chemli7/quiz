@@ -1,3 +1,4 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -7,19 +8,23 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./quiz.component.scss'],
 })
 export class QuizComponent implements OnInit {
-   pointer: number;
-   score: number;
+  pointer: number;
+  score: number;
   colors: string[];
   selected: string[];
   disabled: boolean;
   answered: boolean[];
-  constructor() { }
+  selectionColor:string="#0e6fce";
+  propositionColor:string="newgray";
+
+  constructor(private route: ActivatedRoute,private http: HttpClient) { }
 
   // from db
-  QList = ["What's the biggest animal in the world? \n  Give 3 animals from the choices below?","What does He stand for on the periodic table?","How many minutes in a game of rugby league?","Who did Anne Hathaway play in Les Miserables?"]
-  QAnswers = [["They probably got my blood sample mixed up. I, uh, dropped your blood sample","They probably got my blood sample mixed up. I, uh, dropped your blood sample","They probably got my blood sample mixed up.","They probably got my blood sample mixed up. I, uh, dropped your blood sample","They probably got my blood sample mixed up."],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"]]
-  QDecision = [[2,3],[2,3,4],[1],[1],[1]]
-  QSelected = [[],[],[],[],[]]
+  QList = [""];
+  QAnswers = [["A-","B-","C-","D-","E-"]];
+  QDecision = [];
+  QSelected = [];
+
   
   Scoring() {
 
@@ -40,11 +45,9 @@ Next() {
   this.pointer = this.pointer + 1
   if (this.answered[this.pointer]) { this.showRightAnswers(); this.showSelectedAnswers()}
   else { this.newQuestion() } }
-  else console.log(this.score)
+  else window.location.href = "/other/"+this.score;
 }
-Report() {
 
-}
 block(){
   this.disabled = true;
 }
@@ -65,7 +68,7 @@ this.selected = this.QSelected[this.pointer]
 
 
 newQuestion() {
-  this.colors = ["newgray","newgray","newgray","newgray","newgray"]
+  this.colors = [this.propositionColor,this.propositionColor,this.propositionColor,this.propositionColor,this.propositionColor];
     this.selected= ["","","","",""]
         this.release()
 }
@@ -79,13 +82,12 @@ newQuestion() {
         }else{
           //No intruder => score >= 0
           for ( let i=0;i<this.QDecision[this.pointer].length;i++){
-            if( this.selected[this.QDecision[this.pointer][i]] == "blue"){
+            if( this.selected[this.QDecision[this.pointer][i]] == this.selectionColor){
               s =s+ 1/this.QDecision[this.pointer].length;
             }
           }
         }
     
-    console.log(s);
     return s;
   }
 
@@ -103,30 +105,79 @@ newQuestion() {
 
 
   go() {
-    this.showRightAnswers()
-    //this.block()
-    // answered
-    this.answered[this.pointer] = true;
-    //scoring
-    this.score = this.score + this.calculScore()
-    // saving answers
-    this.QSelected[this.pointer] = this.selected
-
+    if (!this.answered[this.pointer]){
+      this.showRightAnswers()
+      //this.block()
+      // answered
+      this.answered[this.pointer] = true;
+      //scoring
+      this.score = this.score + this.calculScore();
+      console.log(this.score);
+      
+      // saving answers
+      this.QSelected[this.pointer] = this.selected
+    }
   }
 
   selectAnswer(q:number) {
-    if (this.selected[q] == "") this.selected[q] = "#0e6fce"
-    else if (this.selected[q] == "#0e6fce") this.selected[q] = ""
+    if (!this.answered[this.pointer]){
+      if (this.selected[q] == "") this.selected[q] = this.selectionColor;
+      else if (this.selected[q] == this.selectionColor) this.selected[q] = ""
+    }
+    
+  }
+
+  getData(){
+
+    let url  ="http://localhost:8080/data";
+    let data={"name": "", "year":"","course":"","school":""}
+    this.route.params.subscribe( params => data['year'] = params["year"]);
+    this.route.params.subscribe( params => data['course'] = params["course"]);
+    this.route.params.subscribe( params => data['school'] = params["school"]);
+
+    let params = new HttpParams().append('year', "2018");
+    params.append('course', "Cardio");
+    params.append('school', "Monastir");
+
+    this.http.post<any[]>("http://localhost:8080/data", {"name": "", "year":"2018","course":"Cardio","school":"Monastir"}).subscribe(data => {
+
+        data = data["data"];
+
+        
+        this.QAnswers=[];
+        this.QList=[];
+        for (let i=0;i<data.length;i++){
+          this.QList.push(data[i]['title']);
+          this.QAnswers.push([]);
+          this.QAnswers[i].push(data[i]['A']);
+          this.QAnswers[i].push(data[i]['B']);
+          this.QAnswers[i].push(data[i]['C']);
+          this.QAnswers[i].push(data[i]['D']);
+          this.QAnswers[i].push(data[i]['E']);
+          this.QDecision.push(data[i]['rightAnswers']);
+          
+          
+        }        
+    });
+
+  }
+
+  initVariables(){
+    for (let i of this.QList){
+      this.answered.push(false);
+    }
     
   }
 
   ngOnInit() {
-    this.pointer = 0
-    this.score = 0
-    this.colors = ["newgray","newgray","newgray","newgray","newgray"]
-    this.selected= ["","","","",""]
-    this.answered = [false,false,false,false,false]
-    this.disabled=false
+    this.pointer = 0;
+    this.score = 0;
+    this.colors = [this.propositionColor,this.propositionColor,this.propositionColor,this.propositionColor,this.propositionColor];
+    this.selected= ["","","","",""];
+    this.answered = [];
+    this.disabled=false;
+    this.getData();    
+    this.initVariables();
     
   }
 
