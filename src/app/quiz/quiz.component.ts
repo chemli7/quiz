@@ -18,6 +18,7 @@ export class QuizComponent implements OnInit {
   propositionColor:string="newgray";
   QsizeList = []
   successPercentage: number = 0;
+  data: any;
 
   constructor(private route: ActivatedRoute,private http: HttpClient) { }
 
@@ -41,7 +42,7 @@ Next() {
   this.pointer = this.pointer + 1
   if (this.answered[this.pointer]) { this.showRightAnswers(); this.showSelectedAnswers()}
   else { this.newQuestion() } }
-  else window.location.href = "/other/"+this.score;
+  else window.location.href = "/other/"+this.score+"/"+this.data["year"]+"/"+this.data["school"]+"/"+this.data["course"];
 }
 
 block(){
@@ -144,11 +145,11 @@ calculScore(){
   getData(){
 
     let url  ="http://localhost:8080/data";
-    let data={"name": "", "year":"","course":"","school":""}
+    let data ={"name": "", "year":"","course":"","school":""}
     this.route.params.subscribe( params => data['year'] = params["year"]);
     this.route.params.subscribe( params => data['course'] = params["course"]);
     this.route.params.subscribe( params => data['school'] = params["school"]);
-    console.log(data["course"])
+    this.data = data
 
     this.http.post<any[]>("http://localhost:8080/data", {"name": "", "year":data["year"],"course":data["course"],"school":data["school"]}).subscribe(data => {
 

@@ -26,7 +26,7 @@ const routes: Routes = [
     component: StatsComponent
   },
   {
-    path: 'other/:score',
+    path: 'other/:score/:year/:school/:course',
     component: OtherComponent
   
   }
