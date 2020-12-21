@@ -9,24 +9,22 @@
 <button (click)="go(4)" class="btn btn-primary">{{QAnswers[pointer][4]}}</button>
  -->
 
- <ion-card  color="newblue">
-<div >
-  <ion-card-header class="d-flex align-items-center justify-content-center" style="color: white;">
+ 
+<div   style=" height: 32%;" > 
+  <ion-card-header color="newblue" class="d-flex align-items-center justify-content-center" style="color: white;">
     Cardio, Monastir, 2018
   </ion-card-header>
-  <ion-card-content  class="ion-text-center"  color="light" style="color: white">
+
+  <ion-card-content color="newblue"  class="ion-text-center"   >
     <ion-text style="font-size: 150%" >{{ QList[pointer] }}</ion-text>
   </ion-card-content>
-  
-    <ion-item color="newblue" >
-      <ion-button  (click)="Back()" slot="start"><ion-icon name="chevron-back-outline"></ion-icon>back</ion-button>
-     <!-- <ion-button slot="start" (click)="Report()" color="danger">report</ion-button> -->
-      <ion-button  (click)="Next()" slot="end">next<ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
-      
-    </ion-item>
-  
 </div>
-</ion-card>
+<ion-item color="newblue">
+  <ion-button  (click)="Back()" slot="start"><ion-icon name="chevron-back-outline"></ion-icon>back</ion-button>
+ <!-- <ion-button slot="start" (click)="Report()" color="danger">report</ion-button> -->
+  <ion-button  (click)="Next()" slot="end">next<ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
+</ion-item>
+
 <ion-content
   color="secondary"
   [scrollEvents]="true"
