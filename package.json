@@ -28,6 +28,7 @@
     "bootstrap": "^4.5.3",
     "cordova-android": "9.0.0",
     "cordova-ios": "6.1.1",
+    "mobiscroll": "^3.0.0-beta6",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

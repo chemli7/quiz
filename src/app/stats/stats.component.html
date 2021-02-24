@@ -25,10 +25,13 @@ color="primary"
   <ion-row>
     <ion-col>
       <ion-card>
-        <div class="d-flex justify-content-center mt-2 mb-2 ml-1">
-          <h4> QCM: </h4>
+        <div class="d-flex justify-content mt-2  ml-1">
+          <h4> QCM:</h4>
+        </div>
+        <div class="d-flex justify-content-center ml-1 mb-2">
+          
           <div class="progress">
-            <div class="progress-bar bg-success" role="progressbar"
+            <div class="progress-bar bg-success " role="progressbar"
             aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
               520/1550
             </div>
@@ -48,10 +51,13 @@ color="primary"
   <ion-row>
     <ion-col>
       <ion-card>
-        <div class="d-flex justify-content-center mt-2 mb-2 ml-1">
-          <h4>Series: </h4>
+        <div class="d-flex justify-content mt-2  ml-1">
+          <h4> Series:</h4>
+        </div>
+        <div class="d-flex justify-content-center ml-1 mb-2">
+          
           <div class="progress">
-            <div class="progress-bar bg-success" role="progressbar"
+            <div class="progress-bar bg-success " role="progressbar"
             aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
               520/1550
             </div>
@@ -80,9 +86,10 @@ color="primary"
 
   </ion-row>
 
-  <div id="chart_div">
+  <!-- Line charts: Temps moyen / QCM ...  -->
+  <div id="curve_chart" style="width: 98%;" class="ml-1 mr-1"></div>
 
-  </div>
+
 </div>
 
 
@@ -127,8 +134,10 @@ color="primary"
 
   </ion-row>
 
-  <div id="chart_divEVOLUTION">
-  </div>
+  
+  <!-- Line charts: Evolution du taux ...  -->
+  <div id="chart_divEVOLUTION" style="width: 98%;" class="ml-1 mr-1"></div>
+
 </div>
 
 <div class="text-center mt-1 ">
@@ -171,8 +180,30 @@ color="primary"
     <li class="list-group-item"><h6 style="color: #5d6363;"><b>2019:</b> 10/400 </h6></li>
     <li class="list-group-item"><h6 style="color: #5d6363;"><b>2018:</b> 0/200 </h6></li>
     <li class="list-group-item"><h6 style="color: #5d6363;"><b>2017:</b> 0/200 </h6></li>
-    <li class="list-group-item"><h6 style="color: #5d6363;"><b> ... :</b> 0/200 </h6></li>
+    <li class="list-group-item"><h6 style="color: #5d6363;"><b>2017:</b> 0/200 </h6></li>
+    <li class="list-group-item"><h6 style="color: #5d6363;"><b>2016:</b> 0/200 </h6></li>
+    <li class="list-group-item"><h6 style="color: #5d6363;"><b>2015:</b> 0/200 </h6></li>
   </ul>
+</div>
+
+<div class="text-center">
+
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <div class="d-flex justify-content mt-2 mb-2 ml-1">
+          <button ion-button (click)="showCharts3()" ><h4>Moyenne de QCM faits/Jour</h4></button>
+        </div>
+        
+      </ion-card>
+    </ion-col>
+
+  </ion-row>
+
+  
+  <!-- Line charts: Evolution du taux ...  -->
+  <div id="chart_moyenne_qcm_jour" style="width: 98%;" class="ml-1 mr-1"></div>
+
 </div>
 
 
