@@ -136,7 +136,7 @@ color="primary"
 
   
   <!-- Line charts: Evolution du taux ...  -->
-  <div id="chart_divEVOLUTION" style="width: 98%;" class="ml-1 mr-1"></div>
+  <div id="chart_divEVOLUTION" style="width: 98%; border-radius: 10px;" class="ml-1 mr-1"></div>
 
 </div>
 
@@ -159,40 +159,73 @@ color="primary"
   </ion-row>
 </div>
 
-<div class="card mt-2 mb-2" style="width: 98%; margin-left: 1%; margin-right: 1;">
-  <div class="card-header">
-    <h4 style="color: #5d6363;">Nombre de QCMs faits par faculté </h4>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><h6 style="color: #5d6363;"><b>FMT:</b> 20/500 </h6></li>
-    <li class="list-group-item"><h6 style="color: #5d6363;"><b>FMM:</b> 10/400 </h6></li>
-    <li class="list-group-item"><h6 style="color: #5d6363;"><b>FMS:</b> 0/200 </h6></li>
-    <li class="list-group-item"><h6 style="color: #5d6363;"><b>FMS:</b> 0/200 </h6></li>
-  </ul>
-</div>
+
 
 <div class="card mt-2 mb-2" style="width: 98%; margin-left: 1%; margin-right: 1;">
-  <div class="card-header">
-    <h4 style="color: #5d6363;">Nombre de QCMs faits par année </h4>
+  <div id="accordion">
+
+    <div class="card">
+      <div class="card-header">
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapseFaculte">
+          <h4 style="color: #5d6363;">Nombre de QCMs faits par faculté </h4>
+      </a>
+      </div>
+      <div id="collapseFaculte" class="collapse" data-parent="#accordion">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><h6 style="color: #5d6363;"><b>FMT:</b> 20/500 </h6></li>
+          <li class="list-group-item"><h6 style="color: #5d6363;"><b>FMM:</b> 10/400 </h6></li>
+          <li class="list-group-item"><h6 style="color: #5d6363;"><b>FMS:</b> 0/200 </h6></li>
+          <li class="list-group-item"><h6 style="color: #5d6363;"><b>FMS:</b> 0/200 </h6></li>
+        </ul>
+      </div>
+    </div>
+
   </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><h6 style="color: #5d6363;"><b>2020:</b> 20/500 </h6></li>
-    <li class="list-group-item"><h6 style="color: #5d6363;"><b>2019:</b> 10/400 </h6></li>
-    <li class="list-group-item"><h6 style="color: #5d6363;"><b>2018:</b> 0/200 </h6></li>
-    <li class="list-group-item"><h6 style="color: #5d6363;"><b>2017:</b> 0/200 </h6></li>
-    <li class="list-group-item"><h6 style="color: #5d6363;"><b>2017:</b> 0/200 </h6></li>
-    <li class="list-group-item"><h6 style="color: #5d6363;"><b>2016:</b> 0/200 </h6></li>
-    <li class="list-group-item"><h6 style="color: #5d6363;"><b>2015:</b> 0/200 </h6></li>
-  </ul>
 </div>
+
+
+
+<div class="card mt-2 mb-2" style="width: 98%; margin-left: 1%; margin-right: 1;">
+  <div id="accordion">
+
+    <div class="card">
+      <div class="card-header">
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapseAnnee">
+          <h4 style="color: #5d6363;">Nombre de QCMs faits par année </h4>
+      </a>
+      </div>
+      <div id="collapseAnnee" class="collapse" data-parent="#accordion">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><h6 style="color: #5d6363;"><b>2020:</b> 20/500 </h6></li>
+          <li class="list-group-item"><h6 style="color: #5d6363;"><b>2019:</b> 10/400 </h6></li>
+          <li class="list-group-item"><h6 style="color: #5d6363;"><b>2018:</b> 0/200 </h6></li>
+          <li class="list-group-item"><h6 style="color: #5d6363;"><b>2017:</b> 0/200 </h6></li>
+          <li class="list-group-item"><h6 style="color: #5d6363;"><b>2017:</b> 0/200 </h6></li>
+          <li class="list-group-item"><h6 style="color: #5d6363;"><b>2016:</b> 0/200 </h6></li>
+          <li class="list-group-item"><h6 style="color: #5d6363;"><b>2015:</b> 0/200 </h6></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 
 <div class="text-center">
 
   <ion-row>
     <ion-col>
       <ion-card>
-        <div class="d-flex justify-content mt-2 mb-2 ml-1">
-          <button ion-button (click)="showCharts3()" ><h4>Moyenne de QCM faits/Jour</h4></button>
+        <div class=" d-flex justify-content mt-2 mb-2 ml-1">
+          <button ion-button (click)="showCharts3()" >
+            <div class="card-header">
+              <a class="collapsed card-link">
+                <h4 style="color: #5d6363;">Moyenne de QCM faits/Jour </h4>
+              </a>
+            </div>
+          </button>
+          
         </div>
         
       </ion-card>
@@ -202,49 +235,61 @@ color="primary"
 
   
   <!-- Line charts: Evolution du taux ...  -->
-  <div id="chart_moyenne_qcm_jour" style="width: 98%;" class="ml-1 mr-1"></div>
+  <div id="chart_moyenne_qcm_jour_##############" style="width: 98%;" class="ml-1 mr-1"></div>
 
 </div>
 
 
-<div class="text-center">
 
-  <ion-row>
-    <ion-col>
-      <ion-card>
-        <div class="d-flex justify-content mt-2 mb-2 ml-1">
-          <h4><a href="#" style="color:black"> Ranking </a> </h4>
-        </div>
-        
-      </ion-card>
-    </ion-col>
+<div class="card mt-2 mb-2" style="width: 98%; margin-left: 1%; margin-right: 1;">
+  <div id="accordion">
 
-  </ion-row>
-</div>
-
-<div class="wrap-collabsible">
-  <input id="collapsible" class="toggle" type="checkbox">
-  <label for="collapsible" class="lbl-toggle mt-2 mb-2 ml-1" style="width: 98.5%;height: 90%;border-radius: 10px;">Ranking.v1</label>
-  <div class="collapsible-content">
-    <div class="content-inner">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><h6 style="color: #5d6363;"><b>Par total des points:</b> 5/100 </h6>
-          <ul class="list-group list-group-flush">
-          <li class="list-group-item"><h6 style="color: #5d6363;"><b>Par total des points:</b> 5/100 </h6></li>
-          <li class="list-group-item"><h6 style="color: #5d6363;"><b>Par jour:</b> 5/100 </h6></li>
-          <li class="list-group-item"><h6 style="color: #5d6363;"><b>Par semaine:</b> 5/100 </h6></li>
-          <li class="list-group-item"><h6 style="color: #5d6363;"><b>Par mois:</b> 5/100 </h6></li>
-          <li class="list-group-item"><h6 style="color: #5d6363;"><b>Par totalité de la période:</b> 5/100 </h6></li>
-        </ul>
-        </li>
-        
-      </ul>
+    <div class="card">
+      <div class="card-header">
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapseGraph" (click)="showCharts3()" >
+          <h4 style="color: #5d6363;">Moyenne de QCM faits/Jour </h4>
+        </a>
+      </div>
+      <div id="collapseGraph" class="collapse" data-parent="#accordion">
+        <!-- Line charts: Evolution du taux ...  -->
+        <div id="chart_moyenne_qcm_jour" style="width: 98%;" class="ml-1 mr-1"></div>
+      </div>
     </div>
+
   </div>
 </div>
 
 
 
+<div class="card mt-2 mb-2" style="width: 98%; margin-left: 1%; margin-right: 1;">
+  <div id="accordion">
+
+    <div class="card">
+      <div class="card-header">
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapseRanking">
+          <h4 style="color: #5d6363;">Ranking </h4>
+        </a>
+      </div>
+      <div id="collapseRanking" class="collapse" data-parent="#accordion">
+        <div class="content-inner">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h6 style="color: #5d6363;"><b>Par total des points:</b> 5/100 </h6>
+              <ul class="list-group list-group-flush">
+              <li class="list-group-item"><h6 style="color: #5d6363;"><b>Par total des points:</b> 5/100 </h6></li>
+              <li class="list-group-item"><h6 style="color: #5d6363;"><b>Par jour:</b> 5/100 </h6></li>
+              <li class="list-group-item"><h6 style="color: #5d6363;"><b>Par semaine:</b> 5/100 </h6></li>
+              <li class="list-group-item"><h6 style="color: #5d6363;"><b>Par mois:</b> 5/100 </h6></li>
+              <li class="list-group-item"><h6 style="color: #5d6363;"><b>Par totalité de la période:</b> 5/100 </h6></li>
+            </ul>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 
 </ion-content>

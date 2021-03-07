@@ -28,6 +28,9 @@ export class QuizComponent implements OnInit {
   QDecision = [];
   QSelected = [];
 
+  Username = "USER";
+  time = 10;
+
 
 Back() {
   if (this.pointer !=0) {
@@ -42,7 +45,12 @@ Next() {
   this.pointer = this.pointer + 1
   if (this.answered[this.pointer]) { this.showRightAnswers(); this.showSelectedAnswers()}
   else { this.newQuestion() } }
-  else window.location.href = "/other/"+this.score+"/"+this.data["year"]+"/"+this.data["school"]+"/"+this.data["course"];
+  else{
+    window.location.href = "/other/"+this.score+"/"+this.data["year"]+"/"+this.data["school"]+"/"+this.data["course"];
+    this.http.post<any[]>("http://localhost:8080/stats", {"username":this.Username, "score": this.score, "quiz":{"year":this.data["year"],"school":this.data["school"], "course": this.data["course"]}, "time": this.time }).subscribe(data => {
+      // Nothing
+    });
+  } 
 }
 
 block(){
